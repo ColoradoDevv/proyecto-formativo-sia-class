@@ -1,2 +1,6 @@
 export { default as Input } from "./components/Input"
 export { default as Button } from "./components/Button"
+export { default as DeleteCounter } from "./components/DeleteCounter"
+export { default as DeleteCounterDos } from "./components/DeleteCounterDos"
+export { default as DeleteEffect } from "./components/DeleteEffect"
+export { default as Select } from "./components/Select"
