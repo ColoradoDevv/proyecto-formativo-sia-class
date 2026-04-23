@@ -1,6 +1,7 @@
 export default function Input({
     label,
     type = "text",
+    error,
     ...props
 }){
     // Cuerpo de la función
@@ -11,13 +12,13 @@ export default function Input({
             {/* Label */}
             {label && (
                 <label 
-                    className="3
+                    className={`
                         block
                         text-caption
-                        text-[8px]
                         mb-1
                         place-self-start
-                    "
+                        ${error ? "text-red-800" : "text-text-primary"}
+                    `}
                 >
                     {label}
                 </label>
@@ -51,7 +52,7 @@ export default function Input({
                 {/* Área visual del input */}
                 <input 
                     type={type}
-                    className="
+                    className={`
                         relative
                         w-full
                         h-12
@@ -61,17 +62,32 @@ export default function Input({
                         px-4
                         text-base
                         
+                        hover:border-2
+                        hover:border-focus-border
+
                         focus:outline-none
-                        focus:ring-2
-                        focus: ring-focus-ring
-                        focus: border-focus-border
-                    "
+                        focus:ring-1
+                        focus:ring-focus-ring
+
+                        ${error ? "border-red-800" : "border border-border"}
+                    `}
                         {...props}
                 />
 
             </div>
 
             {/* Feedback message */}
+            {
+                error && <p
+                    className="
+                        text-caption
+                        text-error
+                        place-self-start
+                    "
+                >
+                {error}
+                </p>
+            }
 
         </div>
     )

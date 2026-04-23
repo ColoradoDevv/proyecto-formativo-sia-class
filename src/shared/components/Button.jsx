@@ -1,3 +1,5 @@
+// Componente Boton - Boton reutilizable con variantes visuales y tamaños controlados, área interactiva mínima de 48px
+
 export default function Button({
     variant = "primary", // Define el estilo visual
     size = "md", // Define tamaño visual
@@ -7,8 +9,9 @@ export default function Button({
 }){
 
     const variants = {
-        primary: "text-brand border",
-        secondary: "bg-black border border-border text-white hover:bg-surface-mute"
+        primary: "text-brand border text-body hover:bg-surface-muted  hover:text-text-inverse",
+
+        secondary: "bg-background border border-border text-text-inverse hover:bg-surface-hover hover:text-text-primary"
     }
 
     const sizes = {
