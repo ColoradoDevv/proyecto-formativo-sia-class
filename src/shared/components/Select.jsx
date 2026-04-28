@@ -33,6 +33,8 @@ export default function Select({
                     border 
                     border-border
                     px-4
+                    bg-white
+                    text-black
                 "
             >
                 <option

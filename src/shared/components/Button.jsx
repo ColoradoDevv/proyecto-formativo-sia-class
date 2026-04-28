@@ -5,13 +5,14 @@ export default function Button({
     size = "md", // Define tamaño visual
     type = "button", // Tipos de botón(buttom, submit, reset)
     children, // Contenido interno del botón(texto, icono) 
+    className = "",
     ...props // Propiedades adicionales (onClick, disable, etc)
 }){
 
     const variants = {
-        primary: "text-brand border text-body hover:bg-surface-muted  hover:text-text-inverse",
+        primary: "text-brand border text-body hover:bg-surface-hover  hover:text-text cursor-pointer",
 
-        secondary: "bg-background border border-border text-text-inverse hover:bg-surface-hover hover:text-text-primary"
+        secondary: "bg-background border border-border text-text hover:bg-surface-hover hover:text-text-inverse cursor-pointer",
     }
 
     const sizes = {
@@ -30,6 +31,7 @@ export default function Button({
     return(
 
         <button
+            type={type}
             className= {`
                 relative
                 inline-flex 
@@ -39,10 +41,10 @@ export default function Button({
                 transition-colors 
                 ${variants[variant]}  
                 ${sizes[size]}
-                ${type}
+                ${className}
             `}
             {...props}
-            
+             
         >
             {children}
         </button>

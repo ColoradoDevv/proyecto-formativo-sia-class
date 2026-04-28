@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { getDocumentTypes } from "@/features/users/services/selectService.js";
-import { Input, Button, Select, Checkbox } from "@/shared";
+import { Input, Button, Select, Checkbox, IconButton, Dropdown, DropdownTrigger, DropdownContent, DropdownItem } from "@/shared";
 import { userSchema } from "../schemas/userSchema";
+import { Link, useNavigate } from "react-router-dom";
+import { ExternalLink, Menu } from "lucide-react";
+
 
 
 export default function UserRegisterForm(){
-
+    const navigate = useNavigate();
     const [documentTypes, setDocumentTypes] = useState([]);
 
     const [formData, setFormData] = useState({
@@ -93,6 +96,8 @@ export default function UserRegisterForm(){
                 className="
                     text-text-primary
                     text-2xl mb-6
+                    text-center
+                    pt-4
                 "
             >
                 Registro de Usuarios
@@ -115,6 +120,9 @@ export default function UserRegisterForm(){
                         grid-cols-2
                         gap-6
                         my-0 mx-auto
+                        border
+                        p-6
+                        rounded-2xl
                     "
                 >
                     <Input 
@@ -212,12 +220,44 @@ export default function UserRegisterForm(){
                     <Button
                         variant = "secondary"
                         size = "sm"
+                        onClick={() => { navigate(-1) }} /* Función de React Router que navega a la página anterior */
                     >
                         Cancelar
                     </Button>
+
+                    {/* Icon Button */}
+                    <Link to="/dashboard">
+                        <IconButton
+                            variant="default"
+                        >
+                            <ExternalLink/>
+                        </IconButton>
+                    </Link>
+
+                    {/* DropDown */}
+                    <Dropdown className="p-10">
+                        <DropdownTrigger>
+                            <IconButton ariaLabel = "Menu">
+                                <Menu/>
+                            </IconButton>
+                        </DropdownTrigger>
+
+                        <DropdownContent className="right-0 w-48">
+                            <DropdownItem>
+                                <Link to="/auth" className="block w-full">
+                                    Auth
+                                </Link>
+                            </DropdownItem>
+                            <DropdownItem>
+                                <Link to="/dashboard" className="block w-full">
+                                    Dashboard
+                                </Link>
+                            </DropdownItem>
+                        </DropdownContent>
+                    </Dropdown>
+
                 </div>
             </form>
-
         </div>
     )
 }

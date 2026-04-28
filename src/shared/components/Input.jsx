@@ -33,6 +33,9 @@ export default function Input({
                     h-12
                     flex
                     items-center
+                    bg-white
+                    rounded-md
+
                 ">
 
                 {/* Área interactiva invisible de un input 48px */}
@@ -60,7 +63,7 @@ export default function Input({
                         border
                         border-border
                         px-4
-                        text-base
+                        text-black
                         
                         hover:border-2
                         hover:border-focus-border
