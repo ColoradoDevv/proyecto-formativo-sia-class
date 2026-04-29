@@ -2,6 +2,7 @@
 import { createBrowserRouter , Navigate} from "react-router-dom";
 // Pages
 import CreateUserPage from "../features/users/pages/CreateUserPage";
+import { AuthForm } from "../features/auth"
 // Layouts
 import {MainLayouts, CallToActionLayout, AuthLayout, DashboardLayout}  from "@/shared";
 import { Heading1 } from "lucide-react";
@@ -20,14 +21,13 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardLayout/>,
         children :[
-            {index: true, element: <h1>Inicio Dashboard</h1>},
-            {path: "contacto", element: <h1>Contacto</h1>},
+            {index: true, element: <CreateUserPage/>},
+            {path: "auth", element: <AuthForm/>},
             {path: "usuarios", element: <h1>Usuarios</h1>},
             {path: "productos", element: <h1>Productos</h1>},
 
         ]
-    }
-
+    },
 ]);
 
 export default router;

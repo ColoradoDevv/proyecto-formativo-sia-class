@@ -10,7 +10,7 @@ export default function Button({
 }){
 
     const variants = {
-        primary: "text-brand border text-body hover:bg-surface-hover  hover:text-text cursor-pointer",
+        primary: "bg-background text-brand border text-body hover:bg-surface-hover  hover:text-text cursor-pointer",
 
         secondary: "bg-background border border-border text-text hover:bg-surface-hover hover:text-text-inverse cursor-pointer",
     }

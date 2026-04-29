@@ -100,7 +100,7 @@ export default function UserRegisterForm(){
                     pt-4
                 "
             >
-                Registro de Usuarios
+                Registro de Usuariosa
             </h1>
 
             <form 

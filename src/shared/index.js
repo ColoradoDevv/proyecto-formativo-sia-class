@@ -14,9 +14,10 @@ export {  Dropdown } from "./components/Dropdown"
 
 
 
-
 // Layouts
 export { default as MainLayouts } from "./layouts/MainLayouts"
 export { default as CallToActionLayout } from "./layouts/CallToActionLayout"
 export { default as AuthLayout } from "./layouts/AuthLayout"
 export { default as DashboardLayout } from "./layouts/DashboardLayout"
+
+export { default as Navbar } from "./layouts/Navbar"
