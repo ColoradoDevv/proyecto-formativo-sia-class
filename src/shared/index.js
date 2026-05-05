@@ -1,12 +1,15 @@
 // Components
 export { default as Input } from "./components/Input"
 export { default as Button } from "./components/Button"
-export { IconButton } from "./components/IconButton"
 export { default as DeleteCounter } from "./components/DeleteCounter"
 export { default as DeleteCounterDos } from "./components/DeleteCounterDos"
 export { default as DeleteEffect } from "./components/DeleteEffect"
 export { default as Select } from "./components/Select"
 export { default as Checkbox } from "./components/Checkbox"
+export { default as Card } from "./components/Card"
+export { default as Switch } from "./components/Switch"
+
+export { IconButton } from "./components/IconButton"
 export {  DropdownTrigger } from "./components/Dropdown"
 export {  DropdownItem } from "./components/Dropdown"
 export {  DropdownContent } from "./components/Dropdown"

@@ -1,8 +1,8 @@
 import { Link, Outlet } from "react-router-dom"
 import { IconButton, Navbar } from "@/shared";
 
-import CreateUserPage from "../../features/users/pages/CreateUserPage"
 import { AuthForm } from "../../features/auth"
+import { HomePage } from "@/features/home"
 
 
 import heroBg from "@/assets/images/bg-1.jpg"
@@ -20,7 +20,7 @@ export default function DashboardLayout(){
             <Navbar />
         
             <main>
-                {/* <CreateUserPage /> */}
+                <HomePage/>
                 <Outlet />
             </main>
         </div>
