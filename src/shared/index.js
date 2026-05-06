@@ -24,3 +24,8 @@ export { default as AuthLayout } from "./layouts/AuthLayout"
 export { default as DashboardLayout } from "./layouts/DashboardLayout"
 
 export { default as Navbar } from "./layouts/Navbar"
+
+
+// Schemas
+
+export { fileSchema } from "./schemas/filesSchema"

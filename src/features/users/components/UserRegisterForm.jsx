@@ -4,6 +4,7 @@ import { Input, Button, Select, Checkbox, IconButton, Dropdown, DropdownTrigger,
 import { userSchema } from "../schemas/userSchema";
 import { Link, useNavigate } from "react-router-dom";
 import { ExternalLink, Menu } from "lucide-react";
+import FileInput from "../../../shared/components/FileInput";
 
 
 
@@ -18,6 +19,7 @@ export default function UserRegisterForm(){
         userDocumentType: "",
         userDocumentNumber: "",
         userPassword: "",
+        userImage: [],
         // Flags Booleanos
         isStaff : false,
         isActive : true,
@@ -203,6 +205,15 @@ export default function UserRegisterForm(){
                         checked={formData.isSuperUser}
                         onChange={handleChange}
                     />
+
+                    <FileInput
+                        value={formData.userImage}
+                        onChange={(files) => setFormData((prev) => ({ ...prev, userImage: files}))}
+                        multiple={true}
+                    />
+                    {errors.userImage && (
+                        <span className="text-red-500 text-sm">{errors.userImage}</span>
+                    )}
                 </div>
 
 

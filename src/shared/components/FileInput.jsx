@@ -1,69 +1,51 @@
-// src/shared/components/FileInput.jsx
-// Input controlado: soporta imagenes + PDF, preview condicional, reorder y limpieza de memoria
-
 import { useRef, useState, useMemo, useEffect } from "react";
-import { Infinity as InifinityLoader } from "ldrs/react";
-import "ldrs/react/Inifinity.css"
+import { Infinity as InfinityLoader } from "ldrs/react";
+
 
 export default function FileInput({
-    value = [], // Estado externo (files) 
-    onChange, // Setter externo 
-    multiple = false, // modo selecionado
-    accept = "image/*,aplication/pdf", // tipos permitidos
-
+    value = [],
+    onChange,
+    multiple = false,
+    accept = "image/*,application/pdf",
 }) {
-    const inputRef = useRef(); // Input ocultp
-    const [isLoading, setIsLoading ] = useState(false) // Loader
-    const [dragIndex, setDragIndex] = useState(null) // indice drag
+    const inputRef = useRef();
+    const [isLoading, setIsLoading] = useState(false);
+    const [dragIndex, setDragIndex] = useState(null);
 
-    const isFile = (file) => file.type.startWith("image/") // discriminador MIME
-
-    // Genera previews SOLO pero imagenes (evitar crear urls innecesarias)
+    const isFile = (file) => file.type.startsWith("image/");
 
     const previews = useMemo(
-        () => value.map((file) => (isFile(File) ? URL.createObjectURL(file) : null)),
+        () => value.map((file) => (isFile(file) ? URL.createObjectURL(file) : null)), 
         [value],
     );
-
-
-    // Limpieza de ObjectURL (prevencion memory Leak)
 
     useEffect(() => {
         return () => {
             previews.forEach((url) => {
-                if (url) URL.revokeObjectURL(url)
+                if (url) URL.revokeObjectURL(url);
             });
         };
     }, [previews]);
 
-    // Normaliza FileList, simula async y limita a 12
-
     const handleFiles = async (files) => {
         setIsLoading(true);
-
         const list = Array.from(files);
         await new Promise((r) => setTimeout(r, 500));
-
         const data = multiple ? [...value, ...list] : [list[0]];
-        onChange(data.slice(0,12));
-        
+        onChange(data.slice(0, 12));
         setIsLoading(false);
     };
 
-    // Eliminacion multiple
-
     const remove = (i) => {
         const copy = [...value];
-        copy.splice(i,1);
+        copy.splice(i, 1);
         onChange(copy);
-    }
-
-    // Reordenamiento con drag & drop
+    };
 
     const reorder = (from, to) => {
-        const copy =[...value];
+        const copy = [...value];
         const [m] = copy.splice(from, 1);
-        copy.splice(to, 0, m)
+        copy.splice(to, 0, m);
         onChange(copy);
     };
 
@@ -78,32 +60,27 @@ export default function FileInput({
                     onDrop={() => reorder(dragIndex, i)}
                     className="relative w-24 h-24 border rounded overflow-hidden group"
                 >
-                    {/* Render condicional: Imagen vs archivo generico */}
                     {isFile(file) ? (
-                        <img src={previews[i]} className="w-full h-full object-cover"/>
+                        <img src={previews[i]} className="w-full h-full object-cover" />
                     ) : (
                         <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-[10px] px-1">
                             <span className="font-semibold">PDF</span>
                             <span className="truncate w-full text-center">{file.name}</span>
                         </div>
                     )}
-
-                    {/* Acciones hover: reoder visual + eliminar */}
-
                     <div className="absolute top-1 right-1 flex flex-col gap-1 opacity-0 group-hover:opacity-100">
                         <button className="w-7 h-7 bg-white rounded-full text-black text-xs">↔</button>
                         <button onClick={() => remove(i)} className="w-7 h-7 bg-white rounded-full text-black text-xs">×</button>
                     </div>
                 </div>
             ))}
-            
-            {/* Trigger de input oculto + loader */}
+
             <div
                 onClick={() => !isLoading && inputRef.current.click()}
                 className="w-24 h-24 border-2 border-dashed rounded flex items-center justify-center cursor-pointer"
             >
                 {isLoading ? (
-                    <InifinityLoader
+                    <InfinityLoader
                         size="55"
                         stroke="4"
                         strokeLength="0.15"
@@ -116,8 +93,7 @@ export default function FileInput({
                 )}
             </div>
 
-            {/* Input desacoplado de UI */}
-            <input 
+            <input
                 ref={inputRef}
                 type="file"
                 hidden
@@ -126,5 +102,5 @@ export default function FileInput({
                 onChange={(e) => handleFiles(e.target.files)}
             />
         </div>
-    )
+    );
 }
