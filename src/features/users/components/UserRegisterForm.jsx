@@ -119,7 +119,8 @@ export default function UserRegisterForm(){
                 <div
                     className="
                         grid 
-                        grid-cols-2
+                        grid-cols
+                        sm:grid-cols-2
                         gap-6
                         my-0 mx-auto
                         border
@@ -244,29 +245,6 @@ export default function UserRegisterForm(){
                             <ExternalLink/>
                         </IconButton>
                     </Link>
-
-                    {/* DropDown */}
-                    <Dropdown className="p-10">
-                        <DropdownTrigger>
-                            <IconButton ariaLabel = "Menu">
-                                <Menu/>
-                            </IconButton>
-                        </DropdownTrigger>
-
-                        <DropdownContent className="right-0 w-48">
-                            <DropdownItem>
-                                <Link to="/auth" className="block w-full">
-                                    Auth
-                                </Link>
-                            </DropdownItem>
-                            <DropdownItem>
-                                <Link to="/dashboard" className="block w-full">
-                                    Dashboard
-                                </Link>
-                            </DropdownItem>
-                        </DropdownContent>
-                    </Dropdown>
-
                 </div>
             </form>
         </div>

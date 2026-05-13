@@ -1,12 +1,7 @@
-import { Link, Outlet } from "react-router-dom"
-import { IconButton, Navbar } from "@/shared";
-
-import { AuthForm } from "../../features/auth"
-import { HomePage } from "@/features/home"
-
+import { Outlet } from "react-router-dom"
+import { Navbar } from "@/shared";
 
 import heroBg from "@/assets/images/bg-1.jpg"
-import { Undo2 } from "lucide-react"
 
 export default function DashboardLayout(){
     return(
@@ -20,7 +15,6 @@ export default function DashboardLayout(){
             <Navbar />
         
             <main>
-                <HomePage/>
                 <Outlet />
             </main>
         </div>

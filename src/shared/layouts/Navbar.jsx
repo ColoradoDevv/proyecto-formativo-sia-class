@@ -1,13 +1,24 @@
 import { Search, User2, HomeIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { IconButton, Dropdown, DropdownTrigger, DropdownContent, DropdownItem , Switch} from "@/shared";    
+import { IconButton, Dropdown, DropdownTrigger, DropdownContent, DropdownItem , Switch, SearchField} from "@/shared";    
 
 import logo from "@/assets/logo.png"
 import { useState } from "react";
 
 
 export default function Navbar(){
-    
+    // Componente de busqueda
+
+    const [search, setSearch] = useState("");
+
+    const handleSearch = (value) => {
+        console.log("Buscar: ", value)
+    }
+
+    const handleClear = () => {
+        console.log("Campo limpiado")
+    }
+
     // Estado que cambia el switch
     const [isActive, setIsActive] = useState(true);
     
@@ -24,7 +35,7 @@ export default function Navbar(){
             <div className="mx-auto max-w-7xl px-4">
                 <div className="flex h-16 items-center justify-between">
                     {/* logo de marca */}
-                    <div className="flex items-center">
+                    <div className="items-center hidden sm:inline-flex">
                         <Link to={"/"} className={`text-h1 font-bold`}>
                             <img src={logo} alt="Logo" className="h-14 w-auto"/>
                         </Link>
@@ -54,27 +65,42 @@ export default function Navbar(){
                         </li>
                     </ul>
 
+                    <SearchField
+                        value={search}
+                        onChange={setSearch}
+                        onSubmit={handleSearch}
+                        onClear={handleClear}
+                        placeholder="Buscar productos..."
+                        size="md"
+                        variant="outlined"
+                        className="w-75"
+                    />
                     <Switch
                         checked={isActive}
                         onChange={handleStatusChange}
                         size="md"
+                        className="hidden sm:inline-flex"
                     />
+
                     {/* Seccion Derecha: busqueda + usuario */}
 
                     <div className="flex items-center gap-5">
                         <div className="relative hidden sm:block">
                             {/* Icono de Busqueda */}
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-500"/>
+                            {/* <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-500"/> */}
                                 
                             {/*  Input de Busqueda */}
-                            <input 
+                            {/* <input 
                                 type="text" 
                                 placeholder="Buscar"
                                 className="pl-9 pr-4 py-2.5 border rounded-lg text-body focus:outline-none focus:ring-2 focus:ring-text-primary"
-                            />
+                            /> */}
+
+
+
                         </div>
                             {/* DropDown */}
-                            <Dropdown className="p-10">
+                            <Dropdown className="p-2">
                                 <DropdownTrigger>
                                         {/* Icono de Usuario */}
                                     <IconButton ariaLabel = "Menu">
@@ -91,6 +117,16 @@ export default function Navbar(){
                                     <DropdownItem>
                                         <Link to="/dashboard" className="block w-full">
                                             Dashboard
+                                        </Link>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <Link to="/dashboard/crear-usuario" className="block w-full">
+                                            Registrar Usuario
+                                        </Link>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <Link to="/dashboard/listar-usuario" className="block w-full">
+                                            Gestion de Usuarios
                                         </Link>
                                     </DropdownItem>
                                     <DropdownItem>

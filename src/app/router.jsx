@@ -1,11 +1,13 @@
 // Router
+
 import { createBrowserRouter , Navigate} from "react-router-dom";
 // Pages
 import CreateUserPage from "../features/users/pages/CreateUserPage";
 import { AuthForm } from "../features/auth"
+import { HomePage } from "../features/home";
 // Layouts
-import {MainLayouts, CallToActionLayout, AuthLayout, DashboardLayout}  from "@/shared";
-import { Heading1 } from "lucide-react";
+import { AuthLayout, DashboardLayout }  from "@/shared";
+import { ListUserPage } from "../features/users";
 
 const router = createBrowserRouter([
     {
@@ -21,10 +23,11 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardLayout/>,
         children :[
-            {index: true, element: <CreateUserPage/>},
+            {index: true, element: <HomePage/>},
             {path: "auth", element: <AuthForm/>},
-            {path: "usuarios", element: <h1>Usuarios</h1>},
-            {path: "productos", element: <h1>Productos</h1>},
+            {path: "crear-usuario", element: <CreateUserPage/>},
+            {path: "listar-usuario", element: <ListUserPage/>},
+            {path: "productos", element: <HomePage/>},
 
         ]
     },

@@ -8,6 +8,8 @@ export { default as Select } from "./components/Select"
 export { default as Checkbox } from "./components/Checkbox"
 export { default as Card } from "./components/Card"
 export { default as Switch } from "./components/Switch"
+export { default as DataTable } from "./components/DataTable"
+export { default as SearchField } from "./components/SearchField"
 
 export { IconButton } from "./components/IconButton"
 export {  DropdownTrigger } from "./components/Dropdown"
