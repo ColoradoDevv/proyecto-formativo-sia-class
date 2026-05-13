@@ -8,7 +8,6 @@ import {
 
 // Iconos usados en los botones de acciones
 import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
-import { useState } from "react";
 
 // Hook de React Router para navegar programáticamente entre rutas
 import { Link, useNavigate } from "react-router-dom";
@@ -47,7 +46,7 @@ export default function UserRowActions({ user }) {
 
 
         {/* Boton opciones */}
-        
+
         <Dropdown >
             <DropdownTrigger>
                 <button
