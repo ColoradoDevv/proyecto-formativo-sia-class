@@ -20,4 +20,12 @@ export default defineConfig({
       '@': resolve(__dirname, './src'), // Cuando veas @, interpreta que es src
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000', // URL del backend
+        changeOrigin: true,
+      },
+    },
+  },
 });

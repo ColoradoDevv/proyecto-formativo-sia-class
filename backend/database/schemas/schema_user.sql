@@ -33,8 +33,8 @@ CREATE TABLE public.app_user (
     profile_image_url VARCHAR(255),
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
-    last_login TIMESTAMP,                     -- ✅ coma aquí
-    document_type_id INTEGER NOT NULL,        -- ✅ columna FK
+    last_login TIMESTAMP,                  
+    document_type_id INTEGER NOT NULL,   
 
 
     CONSTRAINT fk_app_user_document_type
