@@ -1,9 +1,10 @@
 // backend/src/features/access/access.repository.js
 
-import { pool } from '../../database/db.js';
+import { pool } from '../../config/db.js';
 
 export const accesRepository ={
     async isSuperUser(userId) {
+        
         const query = `
             SELECT is_superuser
             FROM users u
@@ -13,6 +14,7 @@ export const accesRepository ={
 
         return result.rows[0]?.is_superuser ?? false;
     },
+
 
     async getUserPermissions(userId) {
         const query = `
@@ -42,6 +44,6 @@ export const accesRepository ={
 
         const result = await pool.query(query, [userId]);
 
-        
-    }
+        return result.rows.map((row) => row.permission_codename);
+    },
 }
