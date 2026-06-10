@@ -57,46 +57,6 @@ export default function UserRegisterForm(){
         }));
     }
 
-    // Handles personalizados:
-    
-    // Función que se ejecuta cuando se envía el formulario 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-
-    //     // Se valida el objeto de formData usando el esquema definido con Zod
-    //     // safeParse devuelve un objeto indicando si la validacion fue exitosa o no
-    //     const result = userSchema.safeParse(formData);
-
-    //     // Si la validación falla
-    //     if (!result.success){
-    //         // Objeto donde se almacenarán los errores por campo
-    //         const fieldErrors = {};
-
-    //         // Zod devuelve los errores en un arreglo llamado issues
-    //         // Se recorren para asociar cada error a su campo correspondiente
-    //         result.error.issues.forEach((issue) => {
-    //             // Issue.path contiene la ruta del campo que falló
-    //             const field = issue.path[0];
-
-    //             // Se guarda el mensaje de error en el objeto fieldErrors
-    //             fieldErrors[field] = issue.message;
-    //         });
-
-    //         // Se actualiza el estado de errores para mostrarlos en el formulario
-    //         setErrors(fieldErrors);
-
-    //         // Se detiene la ejecución porque el formulario tiene errores
-    //         return;
-    //     }
-
-    //     // Si la validación es exitosa se limpian los errores anteriores 
-    //     setErrors({});
-
-    //     // result.data contiene los datos ya validados por Zod
-    //     console.log("Usuario valido:", result.data)
-
-    // };
-
 
     //============== HANDLE SUBMIT ==============
     const handleSubmit = async (e) => {

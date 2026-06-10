@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ExternalLink, Menu } from "lucide-react";
 import { useState } from "react";
 import { loginSchemas } from "../schemas/loginSchemas";
+import { login } from "../services/authService";
 
 
 export default function AuthForm(){
@@ -35,43 +36,42 @@ export default function AuthForm(){
 
         
     // Función que se ejecuta cuando se envía el formulario 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => { 
         e.preventDefault();
 
-        // Se valida el objeto de formData usando el esquema definido con Zod
-        // safeParse devuelve un objeto indicando si la validacion fue exitosa o no
         const result = loginSchemas.safeParse(formData);
 
-        // Si la validación falla
         if (!result.success){
-            // Objeto donde se almacenarán los errores por campo
             const fieldErrors = {};
-
-            // Zod devuelve los errores en un arreglo llamado issues
-            // Se recorren para asociar cada error a su campo correspondiente
             result.error.issues.forEach((issue) => {
-                // Issue.path contiene la ruta del campo que falló
-                const field = issue.path[0];
-
-                // Se guarda el mensaje de error en el objeto fieldErrors
-                fieldErrors[field] = issue.message;
+                fieldErrors[issue.path[0]] = issue.message;
             });
-            
-            
-        
-            // Se actualiza el estado de errores para mostrarlos en el formulario
             setErrors(fieldErrors);
 
-            // Se detiene la ejecución porque el formulario tiene errores
             return ;
         }
         
         // Si la validación es exitosa se limpian los errores anteriores 
         setErrors({});
 
-        // navigate("/dashboard")
-        // result.data contiene los datos ya validados por Zod
-        console.log("Usuario valido:", result.data)
+        try {
+            const data = await login(result.data);
+
+            console.log("Respuesta del servidor:", data);
+            console.log("Token recibido:", data.token);
+
+            if (data.token) {
+                sessionStorage.setItem("token", data.token);
+                console.log("Token guardado en sessionStorage");
+            } else {
+                console.error("No se recibió token en la respuesta");
+            }
+
+            navigate("/dashboard");
+
+        } catch (error) {
+            console.error("Error al iniciar sesión:", error);
+        }
     }
 
     return(
@@ -149,7 +149,6 @@ export default function AuthForm(){
                         variant = "primary"
                         size = "sm"
                         type="submit"
-                        onClick={() => { navigate("/dashboard") }}
                     >
                         Iniciar sesión
                     </Button>
