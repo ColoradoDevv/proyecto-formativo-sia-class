@@ -1,6 +1,7 @@
 import { Search, User2, HomeIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { IconButton, Dropdown, DropdownTrigger, DropdownContent, DropdownItem , Switch, SearchField} from "@/shared";    
+import { Link, useNavigate } from "react-router-dom";
+import { IconButton, Dropdown, DropdownTrigger, DropdownContent, DropdownItem , Switch, SearchField} from "@/shared"; 
+import { logoutService } from "../../features/auth/services/logoutService";
 
 import logo from "@/assets/logo.png"
 import { useState } from "react";
@@ -15,6 +16,12 @@ export default function Navbar(){
         console.log("Buscar: ", value)
     }
 
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logoutService()
+        navigate("/auth");
+    }
     const handleClear = () => {
         console.log("Campo limpiado")
     }
@@ -129,10 +136,8 @@ export default function Navbar(){
                                             Gestion de Usuarios
                                         </Link>
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        <Link to="/dashboard/auth" className="block w-full">
-                                            Cerrar Sesíon
-                                        </Link>
+                                    <DropdownItem onClick={handleLogout}>
+                                            Cerrar Sesión
                                     </DropdownItem>
                                 </DropdownContent>
                             </Dropdown>

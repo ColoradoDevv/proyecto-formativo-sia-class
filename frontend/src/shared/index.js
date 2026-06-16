@@ -16,6 +16,7 @@ export {  DropdownTrigger } from "./components/Dropdown"
 export {  DropdownItem } from "./components/Dropdown"
 export {  DropdownContent } from "./components/Dropdown"
 export {  Dropdown } from "./components/Dropdown"
+export { default as ProtectedRoute } from "./components/auth/ProtectedRoute"
 
 
 
