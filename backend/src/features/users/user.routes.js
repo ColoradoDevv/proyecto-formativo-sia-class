@@ -20,8 +20,8 @@ const upload = multer({ dest: "uploads/" });
 // Cuando se recibe una petición POST en la raíz del recurso,
 // Express ejecuta el método create del controller.
 router.post(
-    "/", 
-    authenticateToken, 
+    "/",
+    authenticateToken,
     upload.array("userImage"),
     userController.create
 );
