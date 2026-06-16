@@ -117,23 +117,18 @@ export default function Navbar(){
 
                                 <DropdownContent className="right-0 w-48">
                                     <DropdownItem>
-                                        <Link to="/auth" className="block w-full">
-                                            Auth
-                                        </Link>
-                                    </DropdownItem>
-                                    <DropdownItem>
                                         <Link to="/dashboard" className="block w-full">
                                             Dashboard
                                         </Link>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <Link to="/dashboard/crear-usuario" className="block w-full">
-                                            Registrar Usuario
+                                        <Link to="/dashboard/listar-usuario" className="block w-full">
+                                            Gestion de Usuarios
                                         </Link>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <Link to="/dashboard/listar-usuario" className="block w-full">
-                                            Gestion de Usuarios
+                                        <Link to="/dashboard/access" className="block w-ful">
+                                            Admin
                                         </Link>
                                     </DropdownItem>
                                     <DropdownItem onClick={handleLogout}>
