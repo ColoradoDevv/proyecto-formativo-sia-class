@@ -1,6 +1,6 @@
 // fronted/src/features
 
-const API_URL = "https://localhost:4000/api/access"
+const API_URL = "/api/access"
 
 export async function hasPermission(permissionCode) {
     const token = sessionStorage.getItem("token");

@@ -15,7 +15,7 @@ dotenv.config();
 // Definimos el puerto del servidor
 // Se prioriza el valor definido en el entorno (producción)
 // y se usa 4000 como valor por defecto en desarrollo
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 
 // Iniciamos el servidor HTTP usando la app de Express
