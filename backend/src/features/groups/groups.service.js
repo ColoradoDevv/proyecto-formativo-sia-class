@@ -10,4 +10,8 @@ export const groupsService = {
     async getPermissionsByGroupId(groupId) {
         return await groupsRepository.getPermissionsByGroupId(groupId)
     },
+
+    async updatePermissions(groupId, permissionIds) {
+        return await groupsRepository.updatePermissions(groupId, permissionIds)
+    },
 }

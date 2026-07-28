@@ -30,5 +30,26 @@ export const groupsController = {
                 error: "Error obteniendo permisos del grupo",
             });
         }
-    }
+    },
+
+    async updatePermissions(req, res) {
+        try {
+            const groupId = Number(req.params.groupId);
+            const { permissionIds } = req.body;
+
+            await groupsService.updatePermissions(groupId, permissionIds)
+
+            res.status(200).json({
+                message: "Permisos actualizados correctamente",
+            });
+        } catch (error) {
+            console.error(error);
+
+            res.status(500).json({
+                error: "Error actualizando permisos del grupo",
+            });
+        }
+    },
+
+    
 }

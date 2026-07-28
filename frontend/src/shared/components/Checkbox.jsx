@@ -3,8 +3,8 @@ export default function Checkbox({
     name,                       // Nombre del campo (Util para formularios)    
     label,                      // Texto visible asociado al checkbox
     checked = false,            // Estado del checkbox (true o false)
-    onChange,                   // Función que maneja el cambio de estado 
-    disable = false,            // Indica si el checkbox esta habilitado
+    onChange,                   // Función que maneja el cambio de estado
+    disabled = false,           // Indica si el checkbox esta habilitado
     className = "",             // Clases adicionales para personalización
 
 }) {
@@ -18,7 +18,7 @@ export default function Checkbox({
                 gap-2
                 text-sm
                 cursor-pointer
-                ${disable ? "opacity-50 cursor-not-allowed" : ""}
+                ${disabled ? "opacity-50 cursor-not-allowed" : ""}
                 ${className}
             `}
         >
@@ -29,7 +29,7 @@ export default function Checkbox({
                 name={name}
                 checked={checked}
                 onChange={onChange}
-                disabled={disable}
+                disabledd={disabled}
                 className="w-5 h-5 "
             />
             {/* Texto del checkbox */}

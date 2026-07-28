@@ -23,7 +23,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:4000', // URL del backend
+        target: 'http://localhost:5000', // URL del backend
       },
     },
   },

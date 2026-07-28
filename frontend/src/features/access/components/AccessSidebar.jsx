@@ -11,6 +11,7 @@ export default function AccessSidebar({
   selectedGroup,
   setSelectedGroup,
   setGroupPermissions,
+  setSelectedGroupName
 }) {
   
   // Estado de los usuarios individuales
@@ -55,18 +56,31 @@ export default function AccessSidebar({
             const groupId = e.target.value;
 
 
+            const selectedGroupData = groups.find(
+              (group) => String(group.group_id) === groupId,
+            );
+
+
+            /**
+             * selectedGroupData?.group_name → accede sin romper si es null/    undefined
+              ?. (optional chaining) → evita error
+              ?? "" → si el valor es null o undefined, usa ""
+              Resultado → siempre envía un string válido al estado
+             */
             setSelectedGroup(groupId);
+            setSelectedGroupName(selectedGroupData?.group_name ?? "");
+
+
             setUserId("");
 
 
             const permissions = await getGroupPermissions(groupId);
+            console.log("PERMISOS DEL GRUPO:", permissions);
 
 
             setGroupPermissions(permissions);
-
-
-            console.log("PERMISOS DEL GRUPO:", permissions);
           }}
+
           options={groupOptions}
         />
       </section>

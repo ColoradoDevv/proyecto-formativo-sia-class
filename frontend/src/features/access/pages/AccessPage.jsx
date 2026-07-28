@@ -1,15 +1,55 @@
 // frontend/src/features/access/pages/AccessPage.jsx
-// Corrección: estado compartido entre Sidebar y PermissionModule
+// Corrección: el estado de edición pasa a AccessPage
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AccessSidebar from "../components/AccessSidebar";
 import PermissionModule from "../components/PermissionModule";
+import { updateGroupPermissions } from "../services/groupService";
+import { getAllPermissions } from "../services/permissionService";
 
 
 export default function AccessPage() {
   const [selectedGroup, setSelectedGroup] = useState("");
+  const [selectedGroupName, setSelectedGroupName] = useState("");
   const [groupPermissions, setGroupPermissions] = useState([]);
+  const [allPermissions, setAllPermissions] = useState([])
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [permissionsDraft, setPermissionsDraft] = useState([]);
+
+
+  useEffect(() => {
+    setPermissionsDraft(groupPermissions);
+  }, [groupPermissions]);
+
+  useEffect(() => {
+    getAllPermissions().then(setAllPermissions).catch(console.error);
+  }, []);
+
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+
+  const handleCancel = () => {
+    setPermissionsDraft(groupPermissions);
+    setIsEditing(false);
+  };
+
+
+  const handleSave = async () => {
+    const permissionIds = permissionsDraft.map(
+      (permission) => permission.permission_id,
+    );
+
+    await updateGroupPermissions(selectedGroup, permissionIds);
+
+    setGroupPermissions(permissionsDraft)
+
+    setIsEditing(false)
+  };
 
 
   return (
@@ -19,6 +59,7 @@ export default function AccessPage() {
         setSelectedGroup={setSelectedGroup}
         groupPermissions={groupPermissions}
         setGroupPermissions={setGroupPermissions}
+        setSelectedGroupName={setSelectedGroupName}
       />
 
 
@@ -28,7 +69,14 @@ export default function AccessPage() {
 
         <PermissionModule
           selectedGroup={selectedGroup}
-          groupPermissions={groupPermissions}
+          selectedGroupName={selectedGroupName}
+          isEditing={isEditing}
+          allPermissions={allPermissions}
+          permissionsDraft={permissionsDraft}
+          setPermissionsDraft={setPermissionsDraft}
+          onEdit={handleEdit}
+          onCancel={handleCancel}
+          onSave={handleSave}
         />
       </div>
     </div>
