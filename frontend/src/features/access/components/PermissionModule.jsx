@@ -33,6 +33,20 @@ const handlePermissionChange = (permission, checked) => {
 
     setPermissionsDraft((prev) => [...prev, permission]);
   };
+  // Agregar permisos por modulo
+
+  const permissionsByModule = allPermissions.reduce((groupedPermissions, permission) => {
+    const moduleName = permission.display_name; // clave de agrupacion
+
+    // inicializa el arreglo si el modulo no existe
+    if (!groupedPermissions[moduleName]){
+      groupedPermissions[moduleName] = [];
+    }
+
+    groupedPermissions[moduleName].push(permission) // agrega el permiso al modulo
+
+    return groupedPermissions; // retorna el acumulador en cada iteracion
+  }, {}); // {} = objeto inicial
 
   return (
     <section className="border rounded-lg p-6">
@@ -56,28 +70,29 @@ const handlePermissionChange = (permission, checked) => {
 
 
       <div className="space-y-8">
-        <div className="border-b-2 pb-6">
-          <h3 className="font-medium mb-4">Módulo Usuarios</h3>
-        </div>
+        {Object.entries(permissionsByModule).map(
+          ([moduleName, permissions]) => (
+            <div key={moduleName} className="border-b-2 pb-6">
+              <h3 className="font-medium mb-4">Módulo {moduleName}</h3>
 
-        <div className="flex flex-wrap gap-6">
-          {allPermissions.map((permission) => (
-            <Checkbox
-              key={permission.permission_id}
-              id={permission.permission_codename}
-              name={permission.permission_codename}
-              label={permission.permission_name}
-              checked={hasPermission(permission.permission_codename)}
-              disabled={!isEditing}
-              onChange={(e) => handlePermissionChange(permission, e.target.checked)}
-            />
-          ))}
-        </div>
-
-        {/* Otros módulos */}
-        <div>
-          <h3 className="font-medium mb-4">Otros módulos</h3>
-        </div>
+              <div className="flex flex-wrap gap-6">
+                {permissions.map((permission) => (
+                  <Checkbox
+                    key={permission.permission_id}
+                    id={permission.permission_codename}
+                    name={permission.permission_codename}
+                    label={permission.permission_name}
+                    checked={hasPermission(permission.permission_codename)}
+                    disabled={!isEditing}
+                    onChange={(e) =>
+                      handlePermissionChange(permission, e.target.checked)
+                    }
+                  />
+                ))}
+              </div>
+            </div>
+          ),
+        )}
       </div>
 
       {isEditing && (
