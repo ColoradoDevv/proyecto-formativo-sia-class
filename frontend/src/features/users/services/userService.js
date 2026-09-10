@@ -1,8 +1,10 @@
 // URL base del endpoint de usuarios en el backend
 // En desarrollo apunta al servidor Express local
 // En producción debería provenir de variables de entorno
-const API_URL = "/api/users";
 
+import { API_URL } from "@/features/config";
+
+const USERS_API_URL = `${API_URL}/users` 
 
 // Función para crear un usuario en el backend
 // Recibe un objeto con los datos del usuario
@@ -34,7 +36,7 @@ export async function createUser(userData) {
   }
 
   // Realizamos la petición HTTP usando fetch
-  const response = await fetch(API_URL, {
+  const response = await fetch(USERS_API_URL, {
     // Método HTTP según convención REST
     method: "POST",
 

@@ -1,5 +1,8 @@
-const GROUPS_API_URL = "/api/groups"
-const PERMISSIONS_API_URL = "/api/permissions"
+import {API_URL} from "@/features/config";
+
+
+const GROUPS_API_URL = `${API_URL}/groups` 
+const PERMISSIONS_API_URL = `${API_URL}permissions`
 
 export async function getGroupPermissions(groupId) {
     const response = await fetch(`${GROUPS_API_URL}/${groupId}/permissions`);
