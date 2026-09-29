@@ -1,4 +1,4 @@
-// backend/src/features/auth/auth.service.js
+// backend/src/features/auth/auth.routes.js
 
 import { Router } from "express";
 import { authController } from "./auth.controller.js";

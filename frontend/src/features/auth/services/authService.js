@@ -16,8 +16,14 @@ export async function login(userData) {
     });
 
     if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error al iniciar sesión');
+        let message = 'Error al iniciar sesión';
+        try {
+            const errorData = await response.json();
+            message = errorData.message || errorData.error || message;
+        } catch {
+            // respuesta sin JSON válido, se mantiene mensaje genérico
+        }
+        throw new Error(message);
     }
 
     return response.json();

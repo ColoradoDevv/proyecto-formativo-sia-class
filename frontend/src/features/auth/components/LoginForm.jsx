@@ -9,6 +9,8 @@ import { login } from "../services/authService";
 export default function AuthForm(){
     const navigate = useNavigate();
     const [errors, setErrors] = useState({})
+    const [generalError, setGeneralError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         userEmail: "",
@@ -53,24 +55,24 @@ export default function AuthForm(){
         
         // Si la validación es exitosa se limpian los errores anteriores 
         setErrors({});
+        setGeneralError("");
+        setIsLoading(true);
 
         try {
             const data = await login(result.data);
 
-            console.log("Respuesta del servidor:", data);
-            console.log("Token recibido:", data.token);
-
             if (data.token) {
                 sessionStorage.setItem("token", data.token);
-                console.log("Token guardado en sessionStorage");
             } else {
-                console.error("No se recibió token en la respuesta");
+                throw new Error("No se recibió token en la respuesta");
             }
 
             navigate("/dashboard");
 
         } catch (error) {
-            console.error("Error al iniciar sesión:", error);
+            setGeneralError(error.message || "Error al iniciar sesión");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -129,6 +131,12 @@ export default function AuthForm(){
                         onChange = {handleChange}
                         error={errors.userPassword}
                     />
+
+                    {generalError && (
+                        <p className="text-sm text-center text-red-600" role="alert">
+                            {generalError}
+                        </p>
+                    )}
                 </div>
 
 
@@ -140,6 +148,7 @@ export default function AuthForm(){
                     <Button
                         variant = "secondary"
                         size = "sm"
+                        type="button"
                         onClick={() => { navigate(-1) }} /* Función de React Router que navega a la página anterior */
                     >
                         Cancelar
@@ -149,8 +158,9 @@ export default function AuthForm(){
                         variant = "primary"
                         size = "sm"
                         type="submit"
+                        disabled={isLoading}
                     >
-                        Iniciar sesión
+                        {isLoading ? "Ingresando..." : "Iniciar sesión"}
                     </Button>
                 </div>
             </form>

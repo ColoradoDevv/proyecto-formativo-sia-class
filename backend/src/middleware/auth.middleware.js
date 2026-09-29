@@ -1,4 +1,4 @@
-// backend/src/features/access/access.service.js
+// backend/src/middleware/auth.middleware.js
 
 import jwt from 'jsonwebtoken';
 

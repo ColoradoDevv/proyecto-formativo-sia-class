@@ -7,9 +7,11 @@ import { authRepository } from "./auth.repository.js";
 
 export const authService = {
     async login({userEmail, userPassword}) {
-        const user = await authRepository.findByEmail(userEmail);
+        if (!userEmail || !userPassword) {
+            throw new Error("Correo y contraseña son obligatorios");
+        }
 
-        console.log("Usuario encontrado:", user); // Debug: Verificar el usuario obtenido
+        const user = await authRepository.findByEmail(userEmail);
 
         if (!user) {
             throw new Error("Credenciales invalidas");
@@ -24,10 +26,14 @@ export const authService = {
             throw new Error("Usuario inactivo");
         };
 
+        if (!process.env.JWT_SECRET) {
+            throw new Error("Error de configuración del servidor");
+        }
+
         const token = jwt.sign(
             { id: user.id, email: user.user_email },
             process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES }
+            { expiresIn: process.env.JWT_EXPIRES || "8h" }
         );
 
         return {

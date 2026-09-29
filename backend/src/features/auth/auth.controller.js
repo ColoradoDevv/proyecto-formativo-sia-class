@@ -1,4 +1,4 @@
-// backend/src/features/auth/auth.service.js
+// backend/src/features/auth/auth.controller.js
 
 import { authService } from "./auth.service.js";
 
@@ -13,7 +13,7 @@ export const authController = {
             });
         } catch (err) {
             res.status(401).json({
-                error: err.message,
+                message: err.message,
             });
         }
     }
