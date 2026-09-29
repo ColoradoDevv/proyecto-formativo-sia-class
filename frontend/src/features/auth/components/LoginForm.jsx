@@ -34,6 +34,8 @@ export default function AuthForm(){
             // Se actualiza únicamente lo que cambió
             [name]: type === "checkbox" ? checked : value,
         }));
+        // Limpia el error general en cuanto el usuario corrige algo
+        if (generalError) setGeneralError("");
     }
 
         
@@ -101,12 +103,14 @@ export default function AuthForm(){
                 <div
                     className="
                         grid 
-                        grid-rows-2
+                        grid-cols-1
                         gap-6
                         my-0 mx-auto
                         border
                         p-6
                         rounded-2xl
+                        w-full
+                        max-w-sm
                     "
                 >
 
@@ -132,11 +136,13 @@ export default function AuthForm(){
                         error={errors.userPassword}
                     />
 
-                    {generalError && (
-                        <p className="text-sm text-center text-red-600" role="alert">
-                            {generalError}
-                        </p>
-                    )}
+                    <div aria-live="polite" className="min-h-6">
+                        {generalError && (
+                            <p className="text-sm text-center font-medium text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2" role="alert">
+                                {generalError}
+                            </p>
+                        )}
+                    </div>
                 </div>
 
 
